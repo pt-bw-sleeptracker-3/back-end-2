@@ -1,5 +1,5 @@
 // Update with your config settings.
-require('dotenv')
+require('dotenv').config()
 
 module.exports = {
 
@@ -55,6 +55,9 @@ module.exports = {
     },
     seeds: {
       directory: './data/seeds'
+    },
+    ssl: {
+      rejectUnauthorized: false
     }
   },
 
