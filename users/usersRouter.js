@@ -11,7 +11,8 @@ router.post('/register', (req,res) => {
         .then(userId => {
             db.findById(userId)
                 .then(user => {
-                    res.status(201).json({...user, message: 'success!!'})
+                    const { id, username, name, email } = user
+                    res.status(201).json({id, username, name, email, message: 'success!!'})
                 })
                 .catch(err => {
                     console.log(err)
@@ -32,7 +33,8 @@ router.post('/login', (req,res) => {
         .then(user => {
             if(user && bcrypt.compareSync(password, user.password)) {
                 const token = generateToken(user)
-                res.status(200).json({...user, token: token})
+                const { id, username, name, email } = user
+                res.status(200).json({id, username, name, email, token: token})
             }else {
                 res.status(403).json({message: 'token not valid'})
             }
