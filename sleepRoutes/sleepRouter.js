@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const db = require('./sleepModal')
+const middleware = require('../middleware')
+const { validateId } = require('../middleware')
 
 
 router.get('/', (req,res) => {
@@ -13,7 +15,7 @@ router.get('/', (req,res) => {
         })
 })
 
-router.get('/:id', (req,res) => {
+router.get('/:id',middleware.validateId, (req,res) => {
     db.findById(req.params.id)
         .then(data => {
             res.status(200).json(data)
@@ -27,7 +29,9 @@ router.get('/:id', (req,res) => {
 router.get('/user/:id', (req,res) => {
     db.findByUserId(req.params.id)
         .then(data => {
-            res.status(200).json(data)
+            data[0] ?
+            res.status(200).json(data) : 
+            res.status(403).json({message: 'cannot find any user data'})
         })
         .catch(err => {
             console.log(err)
@@ -35,7 +39,7 @@ router.get('/user/:id', (req,res) => {
         })
 })
 
-router.post('/', (req,res) => {
+router.post('/',middleware.validateUserId, (req,res) => {
     db.insert(req.body)
         .then(id => {
             db.findById(id)
@@ -53,7 +57,7 @@ router.post('/', (req,res) => {
         })
 })
 
-router.put('/:id', (req,res) => {
+router.put('/:id',middleware.validateId, (req,res) => {
     db.update(req.params.id, req.body)
         .then(id => {
             db.findById(id)
@@ -71,10 +75,10 @@ router.put('/:id', (req,res) => {
         })
 })
 
-router.delete('/:id', (req,res) => {
+router.delete('/:id',middleware.validateId, (req,res) => {
     db.remove(req.params.id)
         .then(id => {
-            res.status(203).json({message:'deleted successfully', id})
+            res.status(203).json({message:'deleted successfully', recordsRemoved: id})
         })
         .catch(err => {
             console.log(err)
