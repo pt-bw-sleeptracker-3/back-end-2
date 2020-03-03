@@ -45,6 +45,17 @@ router.post('/login', (req,res) => {
         })
 })
 
+router.get('/', (req,res) => {
+    db.find()
+        .then(response => {
+            res.status(200).json(response)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({message: 'unable to get users'})
+        })
+})
+
 function generateToken(user) {
     const payload = {
         username: user.username,
