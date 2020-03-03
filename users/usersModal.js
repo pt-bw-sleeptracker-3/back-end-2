@@ -3,7 +3,8 @@ const db = require('../data/dbConfig')
 module.exports = {
     insert,
     findById,
-    findByUsername
+    findByUsername,
+    find
 }
 
 function insert(user) {
@@ -19,4 +20,8 @@ function findById(id) {
 function findByUsername(username) {
     return db('users').where({ username })
         .then(([user]) => user)
+}
+
+function find() {
+    return db('users')
 }
