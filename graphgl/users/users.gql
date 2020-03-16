@@ -1,0 +1,17 @@
+
+
+ const users = `
+    type User {
+        id: ID!
+        username: String!
+        name: String
+        email: String
+    }
+
+    extend type Query {
+        users: [User]!
+        # user: User!
+    }
+    `
+module.exports = users
+

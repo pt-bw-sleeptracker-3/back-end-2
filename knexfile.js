@@ -8,11 +8,11 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: 'localhost',
-      port: 5432,
-      user: 'postgres',
-      password: 'mustang85',
-      database: 'sleep-tracker'
+      host: process.env.PGHOST,
+      port: process.env.PGPORT,
+      user: process.env.DBUSER,
+      password: process.env.PGPASSWORD,
+      database: process.env.PGDATABASE
     },
     pool: {
       min: 2,

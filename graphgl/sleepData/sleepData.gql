@@ -1,0 +1,13 @@
+
+const sleepData = `
+    type SleepData {
+        id: ID!
+        date: String
+        sleepStart: Int
+        sleepEnd: Int
+        moodMorn: Int
+        moodMid: Int
+        moodNight: Int
+    }
+`
+module.exports = sleepData
