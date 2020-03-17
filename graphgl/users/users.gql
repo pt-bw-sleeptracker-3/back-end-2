@@ -1,6 +1,6 @@
 
 
- const users = `
+ const users = [`
     type User {
         id: ID!
         username: String!
@@ -8,10 +8,10 @@
         email: String
     }
 
-    extend type Query {
+    type Query {
         users: [User]!
         # user: User!
     }
-    `
+`]
 module.exports = users
 
